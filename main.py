@@ -6,6 +6,7 @@ if pwd == "190828":
     print("Signin In <^>")
 else:
     print("Request Failed\nIncorrect Pin")
+
     quit()
 
 def view():
@@ -33,7 +34,7 @@ while True:
     elif mode == "add":
         add()
     else:
-        print("Invalid Inputs")
+        print("Invalid Inputs, Please try again.....")
 
 
 
