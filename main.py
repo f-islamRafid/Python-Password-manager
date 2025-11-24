@@ -1,42 +1,54 @@
-# password manager
-from cryptography.fernet import Fernet
-
-pwd = input("Windows hello pin? Ans:- ")
+# Login
+pwd = input("Windows Hello PIN? Ans: ")
 if pwd == "190828":
-    print("Signin In <^>")
+    print("Signing in...\n")
 else:
-    print("Request Failed\nIncorrect Pin")
-
+    print("Request Failed\nIncorrect PIN\nTry Again!")
     quit()
 
+
+# Function
 def view():
-    with open("password.txt", "r") as f:
-        for line in f.readlines():
-            data = line.rstrip()
-            name, password = data.split("|")
-            print("Username: ", name, ", Password: ", password)
+    try:
+        with open("password.txt", "r") as f:
+            lines = f.readlines()
+
+            if not lines:
+                print("No passwords saved yet.")
+                return
+
+            print("\nSaved Passwords:")
+            print("-----------------")
+            for line in lines:
+                name, password = line.strip().split("||")
+                print(f"Username: {name} | Password: {password}")
+            print()
+    except FileNotFoundError:
+        print("No password file found. Add some passwords first!\n")
+
 
 def add():
     name = input("Enter username: ")
-    password = input("Enter your password: ")
+    password = input("Enter password: ")
 
     with open("password.txt", "a") as f:
-        f.write(name+ " | "+ password+ "\n")
+        f.write(f"{name}||{password}\n")
+
+    print("Password saved!\n")
 
 
+# Main Loop
 while True:
-    mode = input("Would you like to add new ones or view the existing one, (add or view or q for quit)? Ans:- ").lower()
+    mode = input("Add, View, or q to Quit? Ans: ").lower()
+
     if mode == "q":
-        print("Have a good day")
+        print("Have a good day!")
         break
-    if mode == "view":
+    elif mode == "view":
         view()
     elif mode == "add":
         add()
     else:
-        print("Invalid Inputs, Please try again.....")
+        print("Invalid input, try again...\n")
 
 
-
-
-# code is not complete yet. I'm just giving you the sample
